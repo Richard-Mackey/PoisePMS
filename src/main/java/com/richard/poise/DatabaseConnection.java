@@ -9,7 +9,7 @@ public class DatabaseConnection {
 // final: values cannot be changed
     private static final String URL = System.getenv().getOrDefault(
             "DATABASE_URL",
-            "jdbc:postgresql://localhost:5432/PoisePMS"
+            "jdbc:postgresql://localhost:5432/poisepms"
     );
     private static final String USERNAME = System.getenv().getOrDefault("DB_USERNAME", "richard");
     private static final String PASSWORD = System.getenv().getOrDefault("DB_PASSWORD", "richard");
