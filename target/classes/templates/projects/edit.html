@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Edit Project</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand me-3" href="/projects">PoisePMS</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-evenly" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown me-5">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Projects
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/projects">View all projects</a></li>
+                        <li><a class="dropdown-item" href="/projects/create">Create project</a></li>
+                        <li><a class="dropdown-item" href="/projects/incomplete">Incomplete projects</a></li>
+                        <li><a class="dropdown-item" href="/projects/overdue">Overdue projects</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item me-5">
+                    <a class="nav-link" href="/projects/search">Search for a project</a>
+                </li>
+                <li class="nav-item dropdown me-5">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        People
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/people">View all people</a></li>
+                        <li><a class="dropdown-item" href="/people/create">Add a new person</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item me-5">
+                    <a class="nav-link" href="/people/search">Search for a person</a>
+                </li>
+                <li class="nav-item dropdown me-5">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Search for people by role
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/people/role/customer">Customer</a></li>
+                        <li><a class="dropdown-item" href="/people/role/architect">Architect</a></li>
+                        <li><a class="dropdown-item" href="/people/role/contractor">Contractor</a></li>
+                        <li><a class="dropdown-item" href="/people/role/engineer">Engineer</a></li>
+                        <li><a class="dropdown-item" href="/people/role/manager">Manager</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<h1>Edit Project</h1>
+
+<form th:action="@{/projects/{id}/edit(id=${projectId})}" th:object="${project}" method="post">
+
+    <div class="form-group">
+        <label for="projectName">Project Name:</label>
+        <input type="text" id="projectName" th:field="*{projectName}" required />
+    </div>
+
+    <div class="form-group">
+        <label for="buildingType">Building Type: <span class="required">*</span></label>
+        <input type="text" id="buildingType" th:field="*{buildingType}" required />
+    </div>
+
+    <div class="form-group">
+        <label for="projectAddress">Project Address:</label>
+        <input type="text" id="projectAddress" th:field="*{projectAddress}" />
+    </div>
+
+    <div class="form-group">
+        <label for="ERFNumber">ERF Number:</label>
+        <input type="number" id="ERFNumber" th:field="*{ERFNumber}" />
+    </div>
+
+    <div class="form-group">
+        <label for="totalFee">Total Fee:</label>
+        <input type="number" id="totalFee" th:field="*{totalFee}" step="0.01" />
+    </div>
+
+    <!-- Customer Selection (Required) -->
+    <div class="form-group">
+        <label for="customerID">Customer: <span class="required">*</span></label>
+        <select id="customerID" th:field="*{customerID}" required>
+            <option value="">-- Select Customer --</option>
+            <option th:each="customer : ${customers}"
+                    th:value="${customer.personID}"
+                    th:text="${customer.personName}">
+            </option>
+        </select>
+    </div>
+
+    <!-- Architect Selection (Optional) -->
+    <div class="form-group">
+        <label for="architectID">Architect:</label>
+        <select id="architectID" th:field="*{architectID}">
+            <option value="">-- Select Architect (Optional) --</option>
+            <option th:each="architect : ${architects}"
+                    th:value="${architect.personID}"
+                    th:text="${architect.personName}">
+            </option>
+        </select>
+    </div>
+
+    <!-- Contractor Selection (Optional) -->
+    <div class="form-group">
+        <label for="contractorID">Contractor:</label>
+        <select id="contractorID" th:field="*{contractorID}">
+            <option value="">-- Select Contractor (Optional) --</option>
+            <option th:each="contractor : ${contractors}"
+                    th:value="${contractor.personID}"
+                    th:text="${contractor.personName}">
+            </option>
+        </select>
+    </div>
+
+    <!-- Engineer Selection (Optional) -->
+    <div class="form-group">
+        <label for="engineerID">Engineer:</label>
+        <select id="engineerID" th:field="*{engineerID}">
+            <option value="">-- Select Engineer (Optional) --</option>
+            <option th:each="engineer : ${engineers}"
+                    th:value="${engineer.personID}"
+                    th:text="${engineer.personName}">
+            </option>
+        </select>
+    </div>
+
+    <!-- Manager Selection (Optional) -->
+    <div class="form-group">
+        <label for="managerID">Manager:</label>
+        <select id="managerID" th:field="*{managerID}">
+            <option value="">-- Select Manager (Optional) --</option>
+            <option th:each="manager : ${managers}"
+                    th:value="${manager.personID}"
+                    th:text="${manager.personName}">
+            </option>
+        </select>
+    </div>
+
+    <div>
+        <button type="submit">Update Project</button>
+        <a th:href="@{/projects/{id}(id=${projectId})}"><button type="button" class="cancel">Cancel</button></a>
+    </div>
+
+</form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

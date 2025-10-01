@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Person Details</title>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand me-3" href="/projects">PoisePMS</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-evenly" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown me-5">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Projects
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/projects">View all projects</a></li>
+                        <li><a class="dropdown-item" href="/projects/create">Create project</a></li>
+                        <li><a class="dropdown-item" href="/projects/incomplete">Incomplete projects</a></li>
+                        <li><a class="dropdown-item" href="/projects/overdue">Overdue projects</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item me-5">
+                    <a class="nav-link" href="/projects/search">Search for a project</a>
+                </li>
+                <li class="nav-item dropdown me-5">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        People
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/people">View all people</a></li>
+                        <li><a class="dropdown-item" href="/people/create">Add a new person</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item me-5">
+                    <a class="nav-link" href="/people/search">Search for a person</a>
+                </li>
+                <li class="nav-item dropdown me-5">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Search for people by role
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/people/role/customer">Customer</a></li>
+                        <li><a class="dropdown-item" href="/people/role/architect">Architect</a></li>
+                        <li><a class="dropdown-item" href="/people/role/contractor">Contractor</a></li>
+                        <li><a class="dropdown-item" href="/people/role/engineer">Engineer</a></li>
+                        <li><a class="dropdown-item" href="/people/role/manager">Manager</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<h1 th:text="${person.personName}">Person Name</h1>
+
+<div class="detail-row">
+    <span class="label">Person ID:</span>
+    <span th:text="${person.personID}"></span>
+</div>
+
+<div class="detail-row">
+    <span class="label">Person Phone:</span>
+    <span th:text="${person.phone}"></span>
+</div>
+
+<div class="detail-row">
+    <span class="label">Email Address:</span>
+    <span th:text="${person.email}"></span>
+</div>
+
+<div class="detail-row">
+    <span class="label">Address:</span>
+    <span th:text="${person.address}"></span>
+</div>
+
+<div class="detail-row">
+    <span class="label">Role:</span>
+    <span th:text="${person.role}"></span>
+</div>
+
+<div style="margin-top: 20px;">
+    <a th:href="@{/people/{id}/edit(id=${person.personID})}">
+        <button style="background-color: #2196F3; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+            Edit Person
+        </button>
+    </a>
+    <form th:action="@{/people/{id}/delete(id=${person.personID})}" method="post" style="display: inline;"
+          onsubmit="return confirm('Are you sure you want to delete this person?');">
+        <button type="submit" style="background-color: #f44336; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+            Delete Person
+        </button>
+    </form>
+    <a href="/people">← Back to People</a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

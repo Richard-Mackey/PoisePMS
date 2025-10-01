@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Projects List</title>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand me-3" href="/projects">PoisePMS</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-evenly" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown me-5">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Projects
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/projects">View all projects</a></li>
+                        <li><a class="dropdown-item" href="/projects/create">Create project</a></li>
+                        <li><a class="dropdown-item" href="/projects/incomplete">Incomplete projects</a></li>
+                        <li><a class="dropdown-item" href="/projects/overdue">Overdue projects</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item me-5">
+                    <a class="nav-link" href="/projects/search">Search for a project</a>
+                </li>
+                <li class="nav-item dropdown me-5">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        People
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/people">View all people</a></li>
+                        <li><a class="dropdown-item" href="/people/create">Add a new person</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item me-5">
+                    <a class="nav-link" href="/people/search">Search for a person</a>
+                </li>
+                <li class="nav-item dropdown me-5">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Search for people by role
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/people/role/customer">Customer</a></li>
+                        <li><a class="dropdown-item" href="/people/role/architect">Architect</a></li>
+                        <li><a class="dropdown-item" href="/people/role/contractor">Contractor</a></li>
+                        <li><a class="dropdown-item" href="/people/role/engineer">Engineer</a></li>
+                        <li><a class="dropdown-item" href="/people/role/manager">Manager</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<h1 th:text="${pageTitle}">All Projects</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Project ID</th>
+        <th>Project Name</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="project : ${projects}">
+        <td th:text="${project.projectID}"></td>
+        <td>
+            <a th:href="@{/projects/{id}(id=${project.projectID})}"
+               th:text="${project.projectName}">
+            </a>
+        </td>
+        <td th:text="${project.projectFinalised ? 'Completed' : 'In Progress'}"></td>
+    </tr>
+    </tbody>
+</table>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
