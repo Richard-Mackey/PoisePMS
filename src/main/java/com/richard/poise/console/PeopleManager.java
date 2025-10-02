@@ -34,7 +34,6 @@ public class PeopleManager {
    * either by ID or name
    *
    * @param scanner used for reading user input
-   * @return a person object (if found). Null if not found or user cancels and returns to main menu.
    */
   public static Optional<People> searchPeople(Scanner scanner) {
 
@@ -93,7 +92,6 @@ public class PeopleManager {
 
   /**
    * Provides a way to update information related to a person User can choose any field to update.
-   * Only one field is updated per method call.
    *
    * @param scanner used for reading user input
    */
@@ -201,7 +199,6 @@ public class PeopleManager {
    * projects are being created ProjectsManager.createProject().
    *
    * @param scanner used for reading user input
-   * @return a person object (if found). Null if not found or user cancels and returns to main menu.
    */
   public static Optional<People> displayPeopleByRole(Scanner scanner, String role) {
     // Call DatabaseManager to get the people list

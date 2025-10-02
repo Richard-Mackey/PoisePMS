@@ -1,5 +1,9 @@
 package com.richard.poise.service;
-
+/**
+ * Form backing object for project data in web forms.
+ * Used by Thymeleaf to bind HTML form inputs to Java objects.
+ * Handles data transfer between view layer and controller for project creation/editing.
+ */
 public class ProjectFormData {
     private String projectName;
     private String buildingType;

@@ -48,6 +48,8 @@ public class People {
     return role;
   }
 
+  // people constructor
+
   public void setPersonID(int personID) {
 
     this.personID = personID;

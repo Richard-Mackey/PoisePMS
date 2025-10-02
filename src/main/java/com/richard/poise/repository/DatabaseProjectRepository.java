@@ -7,7 +7,18 @@ import java.util.Optional;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * PostgreSQL implementation of ProjectRepository. Handles all database operations for Project
+ * entities using JDBC.
+ */
 public class DatabaseProjectRepository implements ProjectRepository {
+
+  /**
+   * Retrieves a summary of all projects (ID, name, and completion status). Used for list views
+   * where full project details aren't needed.
+   *
+   * @return List of all projects with basic info, empty list if none found
+   */
   @Override
   public List<Projects> getAllProjectsSummary() {
     Connection connection = null;
@@ -44,6 +55,12 @@ public class DatabaseProjectRepository implements ProjectRepository {
     }
   }
 
+  /**
+   * Finds a project by its unique ID. Returns complete project details including all relationships.
+   *
+   * @param projectID the project's database ID
+   * @return Optional containing the project if found, empty otherwise
+   */
   @Override
   public Optional<Projects> findByID(int projectID) {
     Connection connection = null;
@@ -91,6 +108,12 @@ public class DatabaseProjectRepository implements ProjectRepository {
     }
   }
 
+  /**
+   * Finds a project by its exact name.
+   *
+   * @param projectName the project's full name
+   * @return Optional containing the project if found, empty otherwise
+   */
   @Override
   public Optional<Projects> findByName(String projectName) {
     Connection connection = null;
@@ -98,7 +121,7 @@ public class DatabaseProjectRepository implements ProjectRepository {
 
     try {
       connection = DatabaseConnection.getConnection();
-        String sql = "SELECT * FROM projects WHERE LOWER(project_name) = LOWER(?)";
+      String sql = "SELECT * FROM projects WHERE LOWER(project_name) = LOWER(?)";
       preparedStatement = connection.prepareStatement(sql);
       preparedStatement.setString(1, projectName);
 
@@ -138,6 +161,11 @@ public class DatabaseProjectRepository implements ProjectRepository {
     }
   }
 
+  /**
+   * Updates all fields of an existing project in the database.
+   *
+   * @return true if update successful, false otherwise
+   */
   @Override
   public boolean updateProjectData(
       int projectID,
@@ -197,6 +225,11 @@ public class DatabaseProjectRepository implements ProjectRepository {
     }
   }
 
+  /**
+   * Creates a new project in the database.
+   *
+   * @return the generated project ID if successful, 0 if failed
+   */
   @Override
   public int createProjectData(
       String projectName,
@@ -268,6 +301,12 @@ public class DatabaseProjectRepository implements ProjectRepository {
     }
   }
 
+  /**
+   * Deletes a project from the database.
+   *
+   * @param project_id the ID of the project to delete
+   * @return true if deletion successful, false otherwise
+   */
   @Override
   public boolean deleteProjectData(int project_id) {
     Connection connection = null;
@@ -295,6 +334,14 @@ public class DatabaseProjectRepository implements ProjectRepository {
     }
   }
 
+  /**
+   * Marks a project as finalised and sets its completion date. Once finalised, projects are
+   * considered complete.
+   *
+   * @param projectID the project to finalise
+   * @param finalisedDate the date the project was completed
+   * @return true if finalisation successful, false otherwise
+   */
   @Override
   public boolean finaliseProjectData(int projectID, Date finalisedDate) {
     Connection connection = null;
@@ -325,6 +372,11 @@ public class DatabaseProjectRepository implements ProjectRepository {
     }
   }
 
+  /**
+   * Retrieves all projects that are not yet finalised. Used to show ongoing work.
+   *
+   * @return List of incomplete projects with basic info
+   */
   @Override
   public List<Projects> getIncompleteProjects() {
     Connection connection = null;
@@ -367,6 +419,12 @@ public class DatabaseProjectRepository implements ProjectRepository {
     }
   }
 
+  /**
+   * Retrieves all incomplete projects with deadlines in the past. Used to identify projects
+   * requiring attention.
+   *
+   * @return List of overdue projects with basic info
+   */
   @Override
   public List<Projects> getOverdueProjects() {
     Connection connection = null;
@@ -406,4 +464,4 @@ public class DatabaseProjectRepository implements ProjectRepository {
       }
     }
   }
-  }
+}

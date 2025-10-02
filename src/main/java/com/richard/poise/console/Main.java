@@ -1,12 +1,15 @@
 package com.richard.poise.console;
 
-
 import com.richard.poise.repository.DatabaseConnection;
 import com.richard.poise.model.People;
 import com.richard.poise.model.Projects;
 
 import java.sql.*;
 
+/**
+ * Legacy class used for initial database connectivity testing. Replaced by Spring Boot application
+ * (PoisePmsApplication.java) for web deployment.
+ */
 public class Main {
   public static void main(String[] args) {
     try {
@@ -20,6 +23,7 @@ public class Main {
     }
   }
 
+  // method to display all people in the database
   public static void displayAllPeople() {
     try {
       Connection connection =
@@ -58,6 +62,7 @@ public class Main {
     }
   }
 
+  // method to print all pro
   public static void printAllProjectsFromTable(Statement statement) throws SQLException {
     ResultSet results =
         statement.executeQuery(

@@ -1,6 +1,5 @@
 package com.richard.poise.console;
 
-
 import java.util.Scanner;
 
 public class MainMenu {
@@ -44,6 +43,7 @@ public class MainMenu {
     scanner.close();
   }
 
+  // console menu to allow user to make requests
   private static String getUserOption(Scanner scanner) {
     String optionNumber;
     boolean validOption = false;
@@ -73,6 +73,7 @@ public class MainMenu {
     return "";
   }
 
+  // secondary menu for projects
   private static void handleProjectManagement(Scanner scanner) {
     String optionNumber;
     boolean validOption = false;
@@ -109,6 +110,7 @@ public class MainMenu {
     }
   }
 
+  // secondary menu for handling project status
   private static void handleProjectStatus(Scanner scanner) {
     String optionNumber;
     boolean validOption = false;
@@ -145,6 +147,7 @@ public class MainMenu {
     }
   }
 
+  // secondary menu for handling people
   private static void handlePeopleManagement(Scanner scanner) {
     String optionNumber;
     boolean validOption = false;

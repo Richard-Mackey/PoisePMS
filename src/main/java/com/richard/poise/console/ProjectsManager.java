@@ -1,7 +1,5 @@
 package com.richard.poise.console;
 
-
-
 import com.richard.poise.model.People;
 import com.richard.poise.model.Projects;
 import com.richard.poise.repository.DatabasePersonRepository;
@@ -67,8 +65,6 @@ public class ProjectsManager {
    * project either by project ID or name
    *
    * @param scanner used for reading user input
-   * @return a projects object (if found). Null if not found or user cancels and returns to main
-   *     menu.
    */
   public static Optional<Projects> searchProjects(Scanner scanner) {
     int option = 0;
@@ -128,7 +124,6 @@ public class ProjectsManager {
 
   /**
    * Provides a way to update individual project information User can choose any field to update.
-   * Only one field is updated per method call.
    *
    * @param scanner used for reading user input
    */
@@ -329,21 +324,21 @@ public class ProjectsManager {
    */
   public static void createProject(Scanner scanner) {
 
-      ProjectCreateRequest request = new ProjectCreateRequest();
-String buildingType = "";
+    ProjectCreateRequest request = new ProjectCreateRequest();
+    String buildingType = "";
     boolean validOption = false;
     while (!validOption) {
       // sub menu options
       System.out.println("To create a new project we need to collect a few details");
       System.out.println(
           "Please enter a name for your project (press enter if you don't have one):");
-     String projectName = scanner.nextLine();
-        request.setProjectName(projectName);
+      String projectName = scanner.nextLine();
+      request.setProjectName(projectName);
 
       boolean validBuilding = false;
       while (!validBuilding) {
         System.out.println("Please enter a building type (required):");
-         buildingType = scanner.nextLine();
+        buildingType = scanner.nextLine();
         request.setBuildingType(buildingType);
         // stops user pressing enter without entering building type (needed for building project
         // name if one not provided)
@@ -365,22 +360,22 @@ String buildingType = "";
 
         } else {
           // This only executes when selectedCustomer is not null
-            int customerID = 0;
-            customerID = selectedCustomer.getPersonID();
-            request.setCustomerID(customerID);
+          int customerID = 0;
+          customerID = selectedCustomer.getPersonID();
+          request.setCustomerID(customerID);
 
           if (projectName == null || projectName.trim().isEmpty()) {
             projectName = buildingType + " " + selectedCustomer.getPersonName();
           } else {
             projectName = projectName;
           }
-            request.setProjectName(projectName);
+          request.setProjectName(projectName);
           validCustomer = true; // Only set to true when a valid customer is entered
         }
       }
       System.out.println("Please enter the address for your project (press enter to skip):");
       String projectAddress = scanner.nextLine();
-request.setProjectAddress(projectAddress);
+      request.setProjectAddress(projectAddress);
       String tempERFNumber;
       boolean validERF = false;
       while (!validERF) {
@@ -389,14 +384,14 @@ request.setProjectAddress(projectAddress);
 
         if (tempERFNumber.trim().isEmpty()) {
           // User chose to skip
- request.setERFNumber(0);
+          request.setERFNumber(0);
           validERF = true;
         } else {
           try {
             String cleanOption = tempERFNumber.replaceAll("[\\s-()]", "");
-          int  ERFNumber = Integer.parseInt(cleanOption);
+            int ERFNumber = Integer.parseInt(cleanOption);
             validERF = true;
-              request.setERFNumber(ERFNumber);
+            request.setERFNumber(ERFNumber);
           } catch (NumberFormatException e) {
             System.out.println(
                 "Invalid number format. Please enter a valid ERF number or press Enter to skip.");
@@ -417,8 +412,8 @@ request.setProjectAddress(projectAddress);
         } else {
           try {
             String cleanOption = tempTotalFee.replaceAll("[\\s-()]", "");
-           double totalFee = Double.parseDouble(cleanOption);
-              request.setTotalFee(totalFee);
+            double totalFee = Double.parseDouble(cleanOption);
+            request.setTotalFee(totalFee);
             validTotalFee = true; // Success!
           } catch (NumberFormatException e) {
             System.out.println(
@@ -438,14 +433,14 @@ request.setProjectAddress(projectAddress);
 
         if (tempAmountPaidToDate.trim().isEmpty()) {
           // User chose to skip
-         double amountPaidToDate = 0;
+          double amountPaidToDate = 0;
           validAmountPaidToDate = true;
 
         } else {
           try {
             String cleanOption = tempAmountPaidToDate.replaceAll("[\\s-()]", "");
             double amountPaidToDate = Double.parseDouble(cleanOption);
-              request.setAmountPaidToDate(amountPaidToDate);
+            request.setAmountPaidToDate(amountPaidToDate);
             validAmountPaidToDate = true;
           } catch (NumberFormatException e) {
             System.out.println(
@@ -468,7 +463,7 @@ request.setProjectAddress(projectAddress);
             Date projectDeadline = java.sql.Date.valueOf(deadlineInput);
             validDeadline = true;
             System.out.println("Deadline set successfully!");
-              request.setProjectDeadline(projectDeadline);
+            request.setProjectDeadline(projectDeadline);
           } catch (IllegalArgumentException e) { // date checker
             System.out.println(
                 "Invalid date format. Please use YYYY-MM-DD format (e.g., 2024-12-25) or press Enter to skip.");
@@ -479,23 +474,23 @@ request.setProjectAddress(projectAddress);
       People selectedArchitect =
           PeopleManager.displayPeopleByRole(scanner, "architect").orElse(null);
       int architectID = (selectedArchitect != null) ? selectedArchitect.getPersonID() : 0;
-        request.setArchitectID(architectID);
+      request.setArchitectID(architectID);
 
       System.out.println("Please enter a contractor:");
       People selectedContractor =
           PeopleManager.displayPeopleByRole(scanner, "contractor").orElse(null);
       int contractorID = (selectedContractor != null) ? selectedContractor.getPersonID() : 0;
-        request.setContractorID(contractorID);
+      request.setContractorID(contractorID);
 
       System.out.println("Please enter a engineer:");
       People selectedEngineer = PeopleManager.displayPeopleByRole(scanner, "engineer").orElse(null);
       int engineerID = (selectedEngineer != null) ? selectedEngineer.getPersonID() : 0;
-        request.setEngineerID(engineerID);
+      request.setEngineerID(engineerID);
 
       System.out.println("Please enter a manager:");
       People selectedManager = PeopleManager.displayPeopleByRole(scanner, "manager").orElse(null);
       int managerID = (selectedManager != null) ? selectedManager.getPersonID() : 0;
-        request.setManagerID(managerID);
+      request.setManagerID(managerID);
 
       boolean validFinalised = false;
       while (!validFinalised) {
@@ -507,13 +502,13 @@ request.setProjectAddress(projectAddress);
             || finalisedInput.equals("y")
             || finalisedInput.equals("true")) {
           boolean projectFinalised = true;
-            request.setProjectFinalised(projectFinalised);
+          request.setProjectFinalised(projectFinalised);
           validFinalised = true;
         } else if (finalisedInput.equals("no")
             || finalisedInput.equals("n")
             || finalisedInput.equals("false")) {
           boolean projectFinalised = false;
-            request.setProjectFinalised(projectFinalised);
+          request.setProjectFinalised(projectFinalised);
           validFinalised = true;
         } else {
           System.out.println("Invalid input. Please enter 'yes' or 'no'");
@@ -531,9 +526,9 @@ request.setProjectAddress(projectAddress);
           validCompletionDate = true;
         } else {
           try {
-           Date completionDate = java.sql.Date.valueOf(completionDateInput);
+            Date completionDate = java.sql.Date.valueOf(completionDateInput);
             validCompletionDate = true;
-              request.setCompletionDate(completionDate);
+            request.setCompletionDate(completionDate);
             System.out.println("Completion date set successfully!");
           } catch (IllegalArgumentException e) {
             System.out.println(
@@ -543,17 +538,15 @@ request.setProjectAddress(projectAddress);
       }
 
       validOption = true;
-        ProjectService service = new ProjectService(
-                new DatabaseProjectRepository(),
-                new DatabasePersonRepository()
-        );
-        ProjectUpdateResult result = service.createProject(request);
+      ProjectService service =
+          new ProjectService(new DatabaseProjectRepository(), new DatabasePersonRepository());
+      ProjectUpdateResult result = service.createProject(request);
 
-        if (result.getSuccess()) {
-            System.out.println(result.getMessage());
-        } else {
-            System.out.println("Error: " + result.getMessage());
-        }
+      if (result.getSuccess()) {
+        System.out.println(result.getMessage());
+      } else {
+        System.out.println("Error: " + result.getMessage());
+      }
     }
   }
 

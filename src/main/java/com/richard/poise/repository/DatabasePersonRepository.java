@@ -7,7 +7,17 @@ import java.util.Optional;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * PostgreSQL implementation of PersonRepository. Handles all database operations for Person
+ * entities using JDBC.
+ */
 public class DatabasePersonRepository implements PersonRepository {
+  /**
+   * Finds a person by their unique ID.
+   *
+   * @param personID the person's database ID
+   * @return Optional containing the person if found, empty otherwise
+   */
   @Override
   public Optional<People> findByID(int personID) {
     Connection connection = null;
@@ -45,44 +55,57 @@ public class DatabasePersonRepository implements PersonRepository {
       }
     }
   }
-    @Override
-    public List<People> findAll() {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
 
-        try {
-            connection = DatabaseConnection.getConnection();
-            String sql = "SELECT * FROM people";
-            preparedStatement = connection.prepareStatement(sql);
+  /**
+   * Retrieves all people from the database.
+   *
+   * @return List of all people, empty list if none found
+   */
+  @Override
+  public List<People> findAll() {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
 
-            ResultSet results = preparedStatement.executeQuery();
-            List<People> peopleList = new ArrayList<>();
+    try {
+      connection = DatabaseConnection.getConnection();
+      String sql = "SELECT * FROM people";
+      preparedStatement = connection.prepareStatement(sql);
 
-            while (results.next()) {
-                People person = new People(
-                        results.getInt("person_id"),
-                        results.getString("person_name"),
-                        results.getString("phone"),
-                        results.getString("email"),
-                        results.getString("address"),
-                        results.getString("role")
-                );
-                peopleList.add(person);
-            }
-            return peopleList;
+      ResultSet results = preparedStatement.executeQuery();
+      List<People> peopleList = new ArrayList<>();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return new ArrayList<>();
-        } finally {
-            try {
-                if (preparedStatement != null) preparedStatement.close();
-                if (connection != null) connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+      while (results.next()) {
+        People person =
+            new People(
+                results.getInt("person_id"),
+                results.getString("person_name"),
+                results.getString("phone"),
+                results.getString("email"),
+                results.getString("address"),
+                results.getString("role"));
+        peopleList.add(person);
+      }
+      return peopleList;
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return new ArrayList<>();
+    } finally {
+      try {
+        if (preparedStatement != null) preparedStatement.close();
+        if (connection != null) connection.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
     }
+  }
+
+  /**
+   * Finds a person by their exact name.
+   *
+   * @param personName the person's full name
+   * @return Optional containing the person if found, empty otherwise
+   */
   @Override
   public Optional<People> findByName(String personName) {
     Connection connection = null;
@@ -90,7 +113,7 @@ public class DatabasePersonRepository implements PersonRepository {
 
     try {
       connection = DatabaseConnection.getConnection();
-        String sql = "SELECT * FROM people WHERE LOWER(role) = LOWER(?)";
+      String sql = "SELECT * FROM people WHERE LOWER(role) = LOWER(?)";
       preparedStatement = connection.prepareStatement(sql);
       preparedStatement.setString(1, personName);
 
@@ -121,13 +144,19 @@ public class DatabasePersonRepository implements PersonRepository {
     }
   }
 
+  /**
+   * Retrieves all people with a specific role (e.g., "customer", "architect").
+   *
+   * @param role the role to filter by
+   * @return List of people matching the role, empty list if none found
+   */
   @Override
   public List<People> findByRole(String role) {
     Connection connection = null; // Declare outside try
     PreparedStatement preparedStatement = null;
     try {
       connection = DatabaseConnection.getConnection();
-        String sql = "SELECT * FROM people WHERE LOWER(role) = LOWER(?)";
+      String sql = "SELECT * FROM people WHERE LOWER(role) = LOWER(?)";
       preparedStatement = connection.prepareStatement(sql);
       preparedStatement.setString(1, role);
 
@@ -161,6 +190,11 @@ public class DatabasePersonRepository implements PersonRepository {
     }
   }
 
+  /**
+   * Updates an existing person's details in the database.
+   *
+   * @return true if update successful, false otherwise
+   */
   @Override
   public boolean updatePersonData(
       int personID,
@@ -201,6 +235,11 @@ public class DatabasePersonRepository implements PersonRepository {
     }
   }
 
+  /**
+   * Creates a new person in the database.
+   *
+   * @return the generated person ID if successful, 0 if failed
+   */
   @Override
   public int createPersonData(
       String personName, String phone, String email, String personAddress, String role) {
@@ -248,6 +287,12 @@ public class DatabasePersonRepository implements PersonRepository {
     }
   }
 
+  /**
+   * Deletes a person from the database.
+   *
+   * @param person_id the ID of the person to delete
+   * @return true if deletion successful, false otherwise
+   */
   @Override
   public boolean deletePersonData(int person_id) {
     Connection connection = null; // Declare outside try
@@ -279,6 +324,13 @@ public class DatabasePersonRepository implements PersonRepository {
     return false;
   }
 
+  /**
+   * Finds all projects where this person is assigned (architect, contractor, engineer, or manager).
+   * Used to warn before deletion.
+   *
+   * @param personID the person's ID
+   * @return List of project names they're assigned to
+   */
   @Override
   public List<String> getProjectsLinkedToPerson(int personID) {
     ArrayList<String> linkedProjects = new ArrayList<>();
@@ -315,6 +367,13 @@ public class DatabasePersonRepository implements PersonRepository {
     return linkedProjects;
   }
 
+  /**
+   * Checks if a person is assigned as a customer to any project. Customers cannot be deleted if
+   * assigned to projects.
+   *
+   * @param personID the person's ID
+   * @return true if they're a customer on any project, false otherwise
+   */
   @Override
   public boolean isCustomerInProjects(int personID) {
     Connection connection = null; // Declare outside try

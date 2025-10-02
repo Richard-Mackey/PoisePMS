@@ -2,6 +2,10 @@ package com.richard.poise.service;
 
 import java.sql.Date;
 
+/**
+ * Data Transfer Object for updating project information. Supports partial updates - only non-null
+ * fields will be updated. Used to pass update data from controllers to the service layer.
+ */
 public class ProjectUpdateRequest {
   private String projectName;
   private String buildingType;
@@ -18,115 +22,115 @@ public class ProjectUpdateRequest {
   private Boolean projectFinalised; // Note: Boolean not boolean
   private java.sql.Date completionDate;
 
-    public String getProjectName() {
-        return projectName;
-    }
+  public String getProjectName() {
+    return projectName;
+  }
 
-    public String getBuildingType() {
-        return buildingType;
-    }
+  public String getBuildingType() {
+    return buildingType;
+  }
 
-    public String getProjectAddress() {
-        return projectAddress;
-    }
+  public String getProjectAddress() {
+    return projectAddress;
+  }
 
-    public Integer getERFNumber() {
-        return ERFNumber;
-    }
+  public Integer getERFNumber() {
+    return ERFNumber;
+  }
 
-    public Double getTotalFee() {
-        return totalFee;
-    }
+  public Double getTotalFee() {
+    return totalFee;
+  }
 
-    public Double getAmountPaidToDate() {
-        return amountPaidToDate;
-    }
+  public Double getAmountPaidToDate() {
+    return amountPaidToDate;
+  }
 
-    public java.sql.Date getProjectDeadline() {
-        return projectDeadline;
-    }
+  public java.sql.Date getProjectDeadline() {
+    return projectDeadline;
+  }
 
-    public Integer getArchitectID() {
-        return architectID;
-    }
+  public Integer getArchitectID() {
+    return architectID;
+  }
 
-    public Integer getContractorID() {
-        return contractorID;
-    }
+  public Integer getContractorID() {
+    return contractorID;
+  }
 
-    public Integer getCustomerID() {
-        return customerID;
-    }
+  public Integer getCustomerID() {
+    return customerID;
+  }
 
-    public Integer getEngineerID() {
-        return engineerID;
-    }
+  public Integer getEngineerID() {
+    return engineerID;
+  }
 
-    public Integer getManagerID() {
-        return managerID;
-    }
+  public Integer getManagerID() {
+    return managerID;
+  }
 
-    public Boolean isProjectFinalised() {
-        return projectFinalised;
-    }
+  public Boolean isProjectFinalised() {
+    return projectFinalised;
+  }
 
-    public java.sql.Date getCompletionDate() {
-        return completionDate;
-    }
+  public java.sql.Date getCompletionDate() {
+    return completionDate;
+  }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
-    }
+  public void setProjectName(String projectName) {
+    this.projectName = projectName;
+  }
 
-    public void setBuildingType(String buildingType) {
-        this.buildingType = buildingType;
-    }
+  public void setBuildingType(String buildingType) {
+    this.buildingType = buildingType;
+  }
 
-    public void setProjectAddress(String projectAddress) {
-        this.projectAddress = projectAddress;
-    }
+  public void setProjectAddress(String projectAddress) {
+    this.projectAddress = projectAddress;
+  }
 
-    public void setERFNumber(Integer ERFNumber) {
-        this.ERFNumber = ERFNumber;
-    }
+  public void setERFNumber(Integer ERFNumber) {
+    this.ERFNumber = ERFNumber;
+  }
 
-    public void setTotalFee(Double totalFee) {
-        this.totalFee = totalFee;
-    }
+  public void setTotalFee(Double totalFee) {
+    this.totalFee = totalFee;
+  }
 
-    public void setAmountPaidToDate(Double amountPaidToDate) {
-        this.amountPaidToDate = amountPaidToDate;
-    }
+  public void setAmountPaidToDate(Double amountPaidToDate) {
+    this.amountPaidToDate = amountPaidToDate;
+  }
 
-    public void setProjectDeadline(Date projectDeadline) {
-        this.projectDeadline = projectDeadline;
-    }
+  public void setProjectDeadline(Date projectDeadline) {
+    this.projectDeadline = projectDeadline;
+  }
 
-    public void setArchitectID(Integer architectID) {
-        this.architectID = architectID;
-    }
+  public void setArchitectID(Integer architectID) {
+    this.architectID = architectID;
+  }
 
-    public void setContractorID(Integer contractorID) {
-        this.contractorID = contractorID;
-    }
+  public void setContractorID(Integer contractorID) {
+    this.contractorID = contractorID;
+  }
 
-    public void setCustomerID(Integer customerID) {
-        this.customerID = customerID;
-    }
+  public void setCustomerID(Integer customerID) {
+    this.customerID = customerID;
+  }
 
-    public void setEngineerID(Integer engineerID) {
-        this.engineerID = engineerID;
-    }
+  public void setEngineerID(Integer engineerID) {
+    this.engineerID = engineerID;
+  }
 
-    public void setManagerID(Integer managerID) {
-        this.managerID = managerID;
-    }
+  public void setManagerID(Integer managerID) {
+    this.managerID = managerID;
+  }
 
-    public void setProjectFinalised(Boolean projectFinalised) {
-        this.projectFinalised = projectFinalised;
-    }
-    public void setCompletionDate(Date completionDate) {
-        this.completionDate = completionDate;
-    }
+  public void setProjectFinalised(Boolean projectFinalised) {
+    this.projectFinalised = projectFinalised;
+  }
 
+  public void setCompletionDate(Date completionDate) {
+    this.completionDate = completionDate;
+  }
 }
