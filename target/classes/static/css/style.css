@@ -2,11 +2,12 @@
     margin-right: 4rem !important;
 }
 body {
-            font-family: Arial, sans-serif;
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 20px;
-            }
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    font-size: 16px;
+}
          .search-section {
                     margin-bottom: 30px;
                     padding: 20px;
@@ -65,6 +66,39 @@ body {
                 .required {
                     color: red;
                 }
-                .form-group {
-                    margin-bottom: 20px;
+                 .form-group {
+                       margin-bottom: 15px;
+                   }
+            /* Base font size for better mobile readability */
+            body {
+                font-family: Arial, sans-serif;
+                max-width: 1200px;
+                margin: 50px auto;
+                padding: 20px;
+                font-size: 16px;
+            }
+
+
+            @media (max-width: 768px) {
+                table {
+                    display: block;
+                    overflow-x: auto;
+                    white-space: nowrap;
                 }
+
+
+                .nav-item {
+                    margin-right: 1rem !important;
+                }
+
+
+                .form-group {
+                    margin-bottom: 15px;
+                }
+
+
+                button, .btn {
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+            }
