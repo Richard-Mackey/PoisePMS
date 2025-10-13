@@ -35,7 +35,7 @@ public class ProjectsManager {
     System.out.println("Customer ID: " + Project.getCustomerID());
     System.out.println("Engineer ID: " + Project.getEngineerID());
     System.out.println("Manager ID: " + Project.getManagerID());
-    System.out.println("Project Finalised: " + (Project.isProjectFinalised() ? "Yes" : "No"));
+    System.out.println("Project Finalised: " + (Project.getIsProjectFinalised() ? "Yes" : "No"));
     System.out.println("Completion date: " + Project.getCompletionDate());
     System.out.println(); // Empty line for spacing between projects
   }
@@ -55,7 +55,7 @@ public class ProjectsManager {
       System.out.println("=== Project Details ===");
       System.out.println("Project ID: " + project.getProjectID());
       System.out.println("Project Name: " + project.getProjectName());
-      System.out.println("Project Finalised: " + (project.isProjectFinalised() ? "Yes" : "No"));
+      System.out.println("Project Finalised: " + (project.getIsProjectFinalised() ? "Yes" : "No"));
       System.out.println(); // Empty line for spacing between projects
     }
   }
@@ -271,7 +271,7 @@ public class ProjectsManager {
           } else if (option == 13) {
             System.out.println(
                 "Current status: "
-                    + (projectToUpdate.isProjectFinalised() ? "Finalised" : "In Progress"));
+                    + (projectToUpdate.getIsProjectFinalised() ? "Finalised" : "In Progress"));
             System.out.println("Choose new status:");
             System.out.println("1. Mark as finalised");
             System.out.println("2. Mark as in progress");

@@ -267,7 +267,7 @@ public class PersonController {
    * @param email the email address to validate
    * @return true if valid or empty (optional field), false otherwise
    */
-  private boolean isValidEmail(String email) {
+  public boolean isValidEmail(String email) {
     if (email == null || email.trim().isEmpty()) {
       return true; // Empty is OK (optional field)
     }

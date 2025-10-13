@@ -90,7 +90,7 @@ public class ProjectService {
             foundProject.getCustomerID(),
             foundProject.getEngineerID(),
             foundProject.getManagerID(),
-            foundProject.isProjectFinalised(),
+            foundProject.getIsProjectFinalised(),
             foundProject.getCompletionDate());
 
     if (success) {
@@ -133,7 +133,7 @@ public class ProjectService {
       return new ProjectUpdateResult(false, "Project not found");
     }
     Projects foundProject = projectOptional.get();
-    if (foundProject.isProjectFinalised()) {
+    if (foundProject.getIsProjectFinalised()) {
       return new ProjectUpdateResult(false, "This project is already finalised");
     }
 

@@ -355,7 +355,7 @@ public class ProjectController {
     Projects project = projectOptional.get();
 
     // Check if already finalised
-    if (project.isProjectFinalised()) {
+    if (project.getIsProjectFinalised()) {
       model.addAttribute("errorMessage", "This project is already finalised");
       return "redirect:/projects/" + id;
     }

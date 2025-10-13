@@ -123,7 +123,7 @@ public class Projects {
     return managerID;
   }
 
-  public boolean isProjectFinalised() {
+  public boolean getIsProjectFinalised() {
     return projectFinalised;
   }
 
