@@ -70,11 +70,11 @@ public interface ProjectRepository {
       double totalFee,
       double amountPaidToDate,
       java.sql.Date projectDeadline,
-      int architectID,
-      int contractorID,
+      Integer architectID,
+      Integer contractorID,
       int customerID,
-      int engineerID,
-      int managerID,
+      Integer engineerID,
+      Integer managerID,
       boolean projectFinalised,
       java.sql.Date completionDate);
 

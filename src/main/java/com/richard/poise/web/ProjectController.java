@@ -10,6 +10,7 @@ import com.richard.poise.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +26,10 @@ public class ProjectController {
 
   private final ProjectRepository projectRepository;
 
-  public ProjectController() {
+  private final SimpMessagingTemplate messagingTemplate;
+
+  public ProjectController(SimpMessagingTemplate messagingTemplate) {
+    this.messagingTemplate = messagingTemplate;
     this.projectRepository = new DatabaseProjectRepository();
   }
 
@@ -150,10 +154,10 @@ public class ProjectController {
     }
 
     request.setCustomerID(customerID);
-    request.setArchitectID(formData.getArchitectID() != null ? formData.getArchitectID() : 0);
-    request.setContractorID(formData.getContractorID() != null ? formData.getContractorID() : 0);
-    request.setEngineerID(formData.getEngineerID() != null ? formData.getEngineerID() : 0);
-    request.setManagerID(formData.getManagerID() != null ? formData.getManagerID() : 0);
+    request.setArchitectID(formData.getArchitectID());
+    request.setContractorID(formData.getContractorID());
+    request.setEngineerID(formData.getEngineerID());
+    request.setManagerID(formData.getManagerID());
 
     request.setAmountPaidToDate(0.0);
     request.setProjectFinalised(false);
@@ -385,6 +389,14 @@ public class ProjectController {
       ProjectUpdateResult result = projectService.finaliseProject(id, sqlDate);
 
       if (result.getSuccess()) {
+        Optional<Projects> projectOptional = projectRepository.findByID(id);
+        if (projectOptional.isPresent()) {
+          Projects project = projectOptional.get();
+          ProjectFinalisationMessage message =
+              new ProjectFinalisationMessage(project.projectID, project.projectName, "User");
+          messagingTemplate.convertAndSend(
+              "/topic/project/" + project.projectID + "/finalized", message);
+        }
         return "redirect:/projects/" + id;
       } else {
         model.addAttribute("errorMessage", result.getMessage());

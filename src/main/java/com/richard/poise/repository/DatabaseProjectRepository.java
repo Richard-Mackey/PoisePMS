@@ -239,11 +239,11 @@ public class DatabaseProjectRepository implements ProjectRepository {
       double totalFee,
       double amountPaidToDate,
       java.sql.Date projectDeadline,
-      int architectID,
-      int contractorID,
+      Integer architectID,
+      Integer contractorID,
       int customerID,
-      int engineerID,
-      int managerID,
+      Integer engineerID,
+      Integer managerID,
       boolean projectFinalised,
       java.sql.Date completionDate) {
     Connection connection = null;
@@ -266,11 +266,27 @@ public class DatabaseProjectRepository implements ProjectRepository {
       preparedStatement.setDouble(5, totalFee);
       preparedStatement.setDouble(6, amountPaidToDate);
       preparedStatement.setDate(7, projectDeadline);
-      preparedStatement.setInt(8, architectID);
-      preparedStatement.setInt(9, contractorID);
+      if (architectID != null) {
+        preparedStatement.setInt(8, architectID);
+      } else {
+        preparedStatement.setNull(8, java.sql.Types.INTEGER);
+      }
+      if (contractorID != null) {
+        preparedStatement.setInt(9, contractorID);
+      } else {
+        preparedStatement.setNull(9, java.sql.Types.INTEGER);
+      }
       preparedStatement.setInt(10, customerID);
-      preparedStatement.setInt(11, engineerID);
-      preparedStatement.setInt(12, managerID);
+      if (engineerID != null) {
+        preparedStatement.setInt(11, engineerID);
+      } else {
+        preparedStatement.setNull(11, java.sql.Types.INTEGER);
+      }
+      if (managerID != null) {
+        preparedStatement.setInt(12, managerID);
+      } else {
+        preparedStatement.setNull(12, java.sql.Types.INTEGER);
+      }
       preparedStatement.setBoolean(13, projectFinalised);
       preparedStatement.setDate(14, completionDate);
 

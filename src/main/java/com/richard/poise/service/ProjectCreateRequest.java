@@ -15,11 +15,11 @@ public class ProjectCreateRequest {
   private double totalFee;
   private double amountPaidToDate;
   private java.sql.Date projectDeadline;
-  private int architectID;
-  private int contractorID;
+  private Integer architectID;
+  private Integer contractorID;
   private int customerID;
-  private int engineerID;
-  private int managerID;
+  private Integer engineerID;
+  private Integer managerID;
   private boolean projectFinalised;
   private java.sql.Date completionDate;
 
@@ -51,11 +51,11 @@ public class ProjectCreateRequest {
     return projectDeadline;
   }
 
-  public int getArchitectID() {
+  public Integer getArchitectID() {
     return architectID;
   }
 
-  public int getContractorID() {
+  public Integer getContractorID() {
     return contractorID;
   }
 
@@ -63,11 +63,11 @@ public class ProjectCreateRequest {
     return customerID;
   }
 
-  public int getEngineerID() {
+  public Integer getEngineerID() {
     return engineerID;
   }
 
-  public int getManagerID() {
+  public Integer getManagerID() {
     return managerID;
   }
 
@@ -107,11 +107,11 @@ public class ProjectCreateRequest {
     this.projectDeadline = projectDeadline;
   }
 
-  public void setArchitectID(int architectID) {
+  public void setArchitectID(Integer architectID) {
     this.architectID = architectID;
   }
 
-  public void setContractorID(int contractorID) {
+  public void setContractorID(Integer contractorID) {
     this.contractorID = contractorID;
   }
 
@@ -119,11 +119,11 @@ public class ProjectCreateRequest {
     this.customerID = customerID;
   }
 
-  public void setEngineerID(int engineerID) {
+  public void setEngineerID(Integer engineerID) {
     this.engineerID = engineerID;
   }
 
-  public void setManagerID(int managerID) {
+  public void setManagerID(Integer managerID) {
     this.managerID = managerID;
   }
 
