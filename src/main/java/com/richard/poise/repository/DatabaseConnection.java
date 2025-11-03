@@ -12,14 +12,14 @@ import java.sql.*;
  * PostgreSQL with default credentials
  */
 public class DatabaseConnection {
-  private static final String URL =
-      System.getenv()
-          .getOrDefault(
-              "DATABASE_URL",
-              "jdbc:postgresql://localhost:5432/poisepms?user=richard&password=richard");
+    private static final String URL =
+            System.getenv("SPRING_DATASOURCE_URL");
+    private static final String USERNAME =
+            System.getenv("SPRING_DATASOURCE_USERNAME");
+    private static final String PASSWORD =
+            System.getenv("SPRING_DATASOURCE_PASSWORD");
 
-  // A method to be called when the database needs to be connected to
-  public static Connection getConnection() throws SQLException {
-    return DriverManager.getConnection(URL);
-  }
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+    }
 }
