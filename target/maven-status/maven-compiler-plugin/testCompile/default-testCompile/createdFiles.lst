@@ -1,0 +1,5 @@
+com/richard/poise/model/PeopleTest.class
+com/richard/poise/service/PersonServiceTest.class
+com/richard/poise/service/ProjectServiceTest.class
+com/richard/poise/web/PersonControllerTest.class
+com/richard/poise/model/ProjectsTest.class
